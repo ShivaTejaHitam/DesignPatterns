@@ -1,11 +1,11 @@
 class DBConnection {
 
-  static DBconnection connection;
+  private static DBconnection connection;
   
   private DBConnection () {
   }
 
-  static DBConnection getInstance() {
+  public static DBConnection getInstance() {
     if(connection == null){
       connection = new DBConnection();
     }
