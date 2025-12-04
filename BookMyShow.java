@@ -6,6 +6,7 @@ class Theatre {
 
 class Ticket{
   private String ticketId;
+  private String seatNo;
   private String showId;
   private String price;
 }
@@ -26,6 +27,11 @@ class Movie {
 class City {
   private String id;
   private String name;
+}
+
+class Seat {
+  private String seatNo;
+  private SeatType seatType;
 }
 
 class MovieTheatre {
