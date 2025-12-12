@@ -1,12 +1,26 @@
+class City {
+  private String id;
+  private String name;
+}
+
 class Theatre {
   private String theatreId;
   private String cityId;
   private String theatreName;
+  private int totalSeats;
+}
+
+class Movie {
+  private String movieId;
+  private String name;
+  private String language;
+  private String genre;
+  private int durationInMinutes;
 }
 
 class Ticket{
   private String ticketId;
-  private String seatNo;
+  private List<String> seatIds;
   private String showId;
   private String price;
 }
@@ -18,23 +32,10 @@ class Show {
   private String theatreId;
 }
 
-class Movie {
-  private String movieId;
-  private String name;
-  private String language;
-}
-
-class City {
-  private String id;
-  private String name;
-}
-
 class Seat {
+  private String seatId;
   private String seatNo;
   private SeatType seatType;
-}
-
-class MovieTheatre {
-  private String movieId;
   private String theatreId;
 }
+
