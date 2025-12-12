@@ -31,6 +31,7 @@ class Show {
   private Instant startTime;
   private Instant endTime;
   private String theatreId;
+  private String movieId;
 }
 
 class Seat {
@@ -38,5 +39,6 @@ class Seat {
   private String seatNo;
   private SeatType seatType;
   private String theatreId;
+  private String price;
 }
 
