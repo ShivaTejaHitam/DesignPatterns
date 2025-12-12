@@ -18,11 +18,12 @@ class Movie {
   private int durationInMinutes;
 }
 
-class Ticket{
-  private String ticketId;
+class Booking{
+  private String bookingId;
   private List<String> seatIds;
   private String showId;
   private String price;
+  private BookingStatus status;
 }
 
 class Show {
