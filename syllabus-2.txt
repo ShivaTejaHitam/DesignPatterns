@@ -1,0 +1,122 @@
+Here’s a curated list of **popular Low-Level Design (LLD) interview questions**, grouped by theme. These are commonly asked in SDE-1 to SDE-3 interviews and focus on **OO design, classes, relationships, and extensibility**.
+
+---
+
+## 🔹 Classic Object-Oriented Design Problems
+
+These are the most common LLD questions.
+
+1. Design a **Parking Lot**
+2. Design a **Library Management System**
+3. Design a **Hotel Management System**
+4. Design a **Movie Ticket Booking System**
+5. Design an **Elevator System**
+6. Design a **Vending Machine**
+7. Design a **ATM**
+8. Design a **Car Rental System**
+9. Design a **Restaurant Management System**
+10. Design a **Banking System**
+
+---
+
+## 🔹 Real-World / Product-Based Designs
+
+Often asked to test domain modeling and edge cases.
+
+11. Design **Amazon / E-commerce checkout**
+12. Design **Uber / Ride Sharing System**
+13. Design **Online Food Delivery System**
+14. Design **WhatsApp / Chat Application**
+15. Design **URL Shortener (LLD focus)**
+16. Design **Online Auction System**
+17. Design **File System**
+18. Design **Calendar / Meeting Scheduler**
+19. Design **Social Media Feed**
+20. Design **Music Streaming Service**
+
+---
+
+## 🔹 Gaming & Simulation Problems
+
+Good for testing state handling and interactions.
+
+21. Design **Chess**
+22. Design **Snake and Ladder**
+23. Design **Tic Tac Toe**
+24. Design **Ludo**
+25. Design **Online Multiplayer Game Lobby**
+
+---
+
+## 🔹 System Components & Utilities
+
+Tests design patterns and extensibility.
+
+26. Design a **Logger System**
+27. Design a **Cache (LRU / LFU)**
+28. Design a **Rate Limiter**
+29. Design a **Notification System**
+30. Design a **Configuration Management System**
+31. Design a **Metrics / Monitoring System**
+32. Design a **Task Scheduler**
+
+---
+
+## 🔹 Design Pattern–Focused Questions
+
+Interviewers may explicitly ask for these.
+
+33. Implement **Observer Pattern** (e.g., Notifications)
+34. Implement **Strategy Pattern** (Payment methods)
+35. Implement **Factory Pattern**
+36. Implement **Singleton**
+37. Implement **Decorator Pattern**
+38. Implement **Command Pattern**
+39. Implement **State Pattern** (Vending Machine, ATM)
+40. Implement **Chain of Responsibility**
+
+---
+
+## 🔹 API & Class Design Questions
+
+Smaller but tricky.
+
+41. Design a **Key-Value Store**
+42. Design an **In-Memory Database**
+43. Design a **Message Queue**
+44. Design a **Search Autocomplete System**
+45. Design a **Version Control System (basic)**
+
+---
+
+## 🔹 Concurrency & Multithreading (Senior-Level LLD)
+
+46. Design a **Thread-safe Cache**
+47. Design a **Producer-Consumer System**
+48. Design a **Task Executor**
+49. Design a **Connection Pool**
+50. Design a **Distributed Lock (LLD level)**
+
+---
+
+## 🔹 What Interviewers Look For
+
+When answering LLD questions, focus on:
+
+* Clear **requirements clarification**
+* Proper **class diagrams**
+* **SOLID principles**
+* Correct use of **design patterns**
+* Handling **edge cases**
+* Clean, extensible **code structure**
+
+---
+
+If you want, I can:
+
+* Walk through **one full LLD solution step-by-step**
+* Provide **UML + code (Java / C++ / Python)**
+* Tell you **which questions are most common at FAANG**
+* Share a **30–day LLD prep roadmap**
+
+Just tell me 👍
