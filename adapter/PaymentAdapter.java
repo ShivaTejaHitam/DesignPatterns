@@ -21,10 +21,14 @@ public class RazorPayAdapter implements PaymentProcessor {
 }
 
 public class PaymentClient {
-    public static void main(String[] args) {
+    
 
-        PaymentProcessor paymentProcessor = new RazorPayAdapter(new RazorPayService());
+    @Autowired
+    PaymentProcessor paymentProcessor;
 
-        paymentProcessor.pay(500);
+
+    public void pay(double amount){
+        paymentProcessor.pay(amount);
     }
+    
 }
