@@ -48,3 +48,18 @@ public class TokenBucketAlgorithm {
         
     }
 }
+
+
+import java.util.concurrent.ConcurrentHashMap;
+
+public class RateLimiterService {
+    // Maps UserID -> TokenBucket
+    private final ConcurrentHashMap<String, TokenBucket> userBuckets = new ConcurrentHashMap<>();
+
+    public boolean isAllowed(String userId) {
+        // Get the bucket for this user, or create a new one if it doesn't exist
+        TokenBucket bucket = userBuckets.computeIfAbsent(userId, k -> new TokenBucket(10, 2.0));
+        
+        return bucket.allowRequest();
+    }
+}
