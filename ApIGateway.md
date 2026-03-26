@@ -63,3 +63,131 @@ Depending on your infrastructure, here are the top choices for 2026:
 * **Beware of Single Point of Failure:** Ensure your gateway is deployed in a High Availability (HA) configuration across multiple availability zones.
 
 **Would you like me to create a specific sequence diagram for a common workflow, like a JWT-authenticated request passing through the gateway?**
+
+
+
+
+
+
+
+
+
+To implement a functional API Gateway in Spring Boot, you have two primary paths: using the high-level **Spring Cloud Gateway** (which is built on Project Reactor) or building a **Custom Filter-based Gateway** from scratch for more granular control.
+
+Since LLD usually implies understanding the "how" under the hood, I'll provide a clean implementation using Spring Cloud Gateway's programmatic approach, as it demonstrates the **Chain of Responsibility** pattern perfectly.
+
+---
+
+## 1. Project Dependencies
+You need the `spring-cloud-starter-gateway` dependency. Note that this uses **Spring WebFlux** (Netty), not the traditional Servlet-based Spring MVC, to ensure non-blocking I/O.
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-gateway</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+</dependency>
+```
+
+---
+
+## 2. Core Implementation: Route Configuration
+This is where the **Route Resolver** and **Filter Chain** are defined. We can define these in a `@Configuration` class.
+
+```java
+@Configuration
+public class GatewayConfig {
+
+    @Bean
+    public RouteLocator customRouteLocator(RouteLocatorBuilder builder, 
+                                            AuthFilter authFilter, 
+                                            RateLimitFilter rateLimitFilter) {
+        return builder.routes()
+            .route("order-service-route", r -> r.path("/orders/**")
+                .filters(f -> f
+                    .filter(authFilter)      // Pre-filter: Check JWT
+                    .filter(rateLimitFilter) // Pre-filter: Check Redis Quota
+                    .addResponseHeader("X-Gateway-Time", LocalDateTime.now().toString())) // Post-filter
+                .uri("lb://ORDER-SERVICE")) // Load Balanced URI
+            .build();
+    }
+}
+```
+
+---
+
+## 3. Custom Filter (The "ID Checker")
+Each filter implements `GatewayFilter`. This is the **LLD "Filter" component** in action.
+
+```java
+@Component
+public class AuthFilter implements GatewayFilter {
+
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
+
+        // Logic: Simple JWT Validation check
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+            return exchange.getResponse().setComplete();
+        }
+
+        // Pass to the next filter in the chain
+        return chain.filter(exchange);
+    }
+}
+```
+
+---
+
+## 4. Rate Limiter (Token Bucket Algorithm)
+Spring Cloud Gateway provides a `RedisRateLimiter` out of the box, which is the industry standard for distributed LLD. It uses a Lua script to ensure the **Atomic** decrement of tokens.
+
+```java
+@Bean
+public RedisRateLimiter redisRateLimiter() {
+    // 10 requests per second, with a burst capacity of 20
+    return new RedisRateLimiter(10, 20);
+}
+
+@Bean
+public KeyResolver userKeyResolver() {
+    // Rate limit based on User ID or IP Address
+    return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
+}
+```
+
+---
+
+## 5. Global Error Handling
+A crucial part of LLD is managing "Downstream Failures." We use a `GlobalExceptionHandler` to ensure the Gateway doesn't leak internal stack traces.
+
+```java
+@Component
+@Order(-1) // High priority
+public class GlobalErrorWebExceptionHandler implements ErrorWebExceptionHandler {
+
+    @Override
+    public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+        if (ex instanceof ConnectException) {
+            exchange.getResponse().setStatusCode(HttpStatus.SERVICE_UNAVAILABLE);
+        } else {
+            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return exchange.getResponse().setComplete();
+    }
+}
+```
+
+---
+
+## Key LLD Design Decisions Applied:
+1.  **Non-blocking I/O:** Using `Mono<Void>` and `ServerWebExchange` allows the gateway to handle thousands of concurrent requests with a small thread pool.
+2.  **Service Discovery:** The `lb://` prefix tells the gateway to look up the service instance from a registry (like Eureka) rather than hardcoding IPs.
+3.  **Separation of Concerns:** Auth, Rate Limiting, and Routing are all decoupled as separate filters.
+
+### Would you like me to show you how to implement a **Circuit Breaker** (using Resilience4j) within this gateway to handle service timeouts?
