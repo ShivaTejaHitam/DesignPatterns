@@ -62,11 +62,10 @@ Depending on your infrastructure, here are the top choices for 2026:
 * **Avoid Business Logic:** Never put domain-specific code (e.g., "calculate discount") in the gateway. It should remain a lightweight "dumb" pipe with "smart" routing.
 * **Beware of Single Point of Failure:** Ensure your gateway is deployed in a High Availability (HA) configuration across multiple availability zones.
 
-**Would you like me to create a specific sequence diagram for a common workflow, like a JWT-authenticated request passing through the gateway?**
 
 
 
-
+## LLD
 
 
 
