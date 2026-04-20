@@ -14,6 +14,7 @@ Here’s a **clean, popular list of Low-Level Design (LLD) interview questions**
 8. Design **Vending Machine**
 9. Design **Chess / Snake and Ladder / Tic Tac Toe**
 10. Design **Online Shopping Cart (Amazon-like)**
+11. design online / offline status feature in whatsapp
 
 ---
 
