@@ -9,7 +9,6 @@ Here’s a **clean, popular list of Low-Level Design (LLD) interview questions**
 3. Design a **Hotel Management System**
 4. Design an **Elevator System**
 5. Design **Car Rental System**
-6. Design a **Library Management System**
 7. Design an **ATM**
 8. Design **Vending Machine**
 9. Design **Chess / Snake and Ladder / Tic Tac Toe**
