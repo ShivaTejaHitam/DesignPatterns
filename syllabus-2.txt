@@ -16,6 +16,7 @@ These are the most common LLD questions.
 8. Design a **Car Rental System**
 9. Design a **Restaurant Management System**
 10. Design a **Banking System**
+11. Design cricbuzz
 
 ---
 
